@@ -1,5 +1,5 @@
 from statistics import mean as m
-
+#
 admins = {'Jonathan': '122091'}
 '''while True:
     login = input('Username: ')
@@ -110,9 +110,8 @@ def studentAVGs():
         gradeList = studentDict[eachStudent]
         avgGrade = m(gradeList)
     print(eachStudent, 'has an average grade of: ', avgGrade)
-
-
-def main():
+    
+def mainMenu():
     print('''
     Welcome to Grade Central
     [ 1 ] - Add Student(s)
@@ -140,21 +139,34 @@ def main():
         removeUser()
     else:
         print('No valid choice was given, please, try again')
+        
+def authenticate():
+    login = input('Username: ')
+    passw = input('Password: ')
 
-
-login = input('Username: ')
-passw = input('Password: ')
-
-if login in admins:
-    if admins[login] == passw:
-        print('Welcome,', login)
-        main()
+    if login in admins:
+        if admins[login] == passw:
+            print('Welcome,', login)
+            mainMenu()
+        else:
+            print('Invalid password, program will detonate in 10 seconds.')
     else:
-        print('Invalid password, program will detonate in 10 seconds.')
-else:
-    print('That Username does not exist please, try again.')
-    action = input('Would you like to add a new user? Yes[1] No[2] ')
-    if action == '1':
-        addUser()
-    else:
-        print("Sorry to see you go.")
+        print('That Username does not exist please, try again.')
+        action = input('Would you like to add a new user? Yes[1] No[2] ')
+        if action == '1':
+            addUser()
+        else:
+            print("Sorry to see you go.")
+
+def main():
+  authenticate()
+    
+        
+        
+    
+if __name__ == "__main__":
+    main()
+
+
+
+
