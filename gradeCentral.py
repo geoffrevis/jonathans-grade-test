@@ -1,47 +1,7 @@
 from statistics import mean as m
-#
-admins = {'Jonathan': '122091'}
-'''while True:
-    login = input('Username: ')
-    passw = input('Password: ')
-    admins[login] = passw'''
-
+import os
 
 studentDict = {'Jonathan': [100, 93, 92, 95], 'Kelly': [100, 100, 100, 95]}
-'''while True:
-    nameToenter = input('Student Name: ')
-    gradeToenter = input('Grade: ')
-    studentDict[nameToenter] = gradeToenter'''
-
-
-def addUser():
-    newAdmin = input('New Username: ')
-    newPass = input('New Password: ')
-    if newAdmin in admins:
-        print(
-            'It appears that username is taken, please try something else.')
-        addUser()
-    else:
-        print('Adding new username...')
-        admins[newAdmin] = newPass
-        print('Hello ', newAdmin)
-        print('What would you like to do today?')
-        main()
-        # print(admins)
-
-
-def removeUser():
-    nameToremove = input('What user do you want to remove? Username: ')
-    if nameToremove in admins:
-        print('Removing user...')
-        del admins[nameToremove]
-        print('Can we help you with anything else?')
-        main()
-    else:
-        print('User does not exist.')
-        removeUser()
-    print(admins)
-
 
 def addStudent():
     nameToenter = input('Student Name: ')
@@ -91,6 +51,9 @@ def enterGrades():
     print('Can we help you with anything else?')
     main()
 
+#this literally just clears the screen.  May break on your computer depending on OS
+def clearScreen():
+  os.system('cls' if os.name=='nt' else 'clear')
 
 def removeStudent():
     nameToremove = input('What student do you want to remove?: ')
@@ -112,8 +75,8 @@ def studentAVGs():
     print(eachStudent, 'has an average grade of: ', avgGrade)
     
 def mainMenu():
-    print('''
-    Welcome to Grade Central
+    print(''' -- Grade Central -- 
+    Main Menu:
     [ 1 ] - Add Student(s)
     [ 2 ] - Enter New Grade(s)
     [ 3 ] - Average Grade(s)
@@ -121,6 +84,7 @@ def mainMenu():
     [ 5 ] - Exit Grade Central
     [ 6 ] - Add User
     [ 7 ] - Remove User
+    [ 8 ] - Exit to Main Menu
     ''')
     action = input('What do you want to do today? ')
     if action == '1':
@@ -137,36 +101,23 @@ def mainMenu():
         addUser()
     elif action == '7':
         removeUser()
+    elif action == '8':
+        return True
     else:
+        clearScreen();
         print('No valid choice was given, please, try again')
-        
-def authenticate():
-    login = input('Username: ')
-    passw = input('Password: ')
+    mainMenu()
 
-    if login in admins:
-        if admins[login] == passw:
-            print('Welcome,', login)
-            mainMenu()
-        else:
-            print('Invalid password, program will detonate in 10 seconds.')
-    else:
-        print('That Username does not exist please, try again.')
-        action = input('Would you like to add a new user? Yes[1] No[2] ')
-        if action == '1':
-            addUser()
-        else:
-            print("Sorry to see you go.")
 
 def main():
-  authenticate()
+  clearScreen();
+  mainMenu()
     
         
         
-    
+#__name__ is a special python variable that is set by the interpreter for each file
+#if the file is being run directly __name__ == "__main__"
+#otherwise it is __name__ == the name of the file ("gradeCentral") in this case
+#this code is to prevent main() from executing when this file is imported.
 if __name__ == "__main__":
     main()
-
-
-
-

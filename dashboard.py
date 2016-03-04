@@ -1,46 +1,36 @@
 import gradeCentral
+import authentication
+import os
 
-
-admins = {'Jonathan': '122091'}
-'''while True:
-    login = input('Username: ')
-    passw = input('Password: ')
-    admins[login] = passw'''
-
-
-def signUp():
-    newAdmin = input('New Username: ')
-    newPass = input('New Password: ')
-    if newAdmin in admins:
-        print(
-            'It appears that username is taken, please try a something else.')
-    else:
-        print('Adding new username...')
-        admins[newAdmin] = newPass
-        print('Congratulations, hello ', newAdmin)
-        print('What would you like to do today?')
-
-        # print(admins)
-
-
-def logIn():
-    adminName = input('Username: ')
-    adminPass = input('Password: ')
-    if adminName in admins:  # if their username is in admin
-        # if the user in admins password = the password given
-        if admins[adminName] == adminPass:
-            print('Welcome,', adminName)
-            while True:  # while this is true, run grade central
-                gradeCentral.main()
-
-
+def mainMenu():
+  print('''-- Main Menu -- 
+[ 1 ] - Grade Central
+[ 2 ] - Exit''')
+  selection = input("Select an Option: ")
+  if(selection == '1'):
+    clearScreen()
+    gradeCentral.main()
+    clearScreen()
+    mainMenu()
+  elif(selection == '2'):
+    return
+  else:
+    clearScreen()
+    print ("You must select an option!")
+    mainMenu()
+    
+#this literally just clears the screen.  May break on your computer depending on OS
+def clearScreen():
+  os.system('cls' if os.name=='nt' else 'clear')
+  
 def main():    
     # Require user to login or signup
-    action = input('Login [ 1 ] or Sign Up [ 2 ]')
-    if action == '1':  # if they choose login request username and password
-        while True:
-            logIn()
-    else:
-        signUp()
+    clearScreen()
+    while(not authentication.currentUser):
+      if(authentication.authenticate()):
+        clearScreen()
+        print('Welcome,', authentication.currentUser)
+    mainMenu()
 
-main()
+if __name__ == "__main__":
+    main()
